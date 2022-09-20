@@ -10,22 +10,31 @@ let background = document.querySelector("body");
 let answer = Math.floor(Math.random() * 20 + 1);
 
 document.querySelector(".check").addEventListener("click", () => {
-  if (score.textContent === "0") {
-    msg.textContent = "Sorry you lose!";
+  if (
+    guess.value === "" ||
+    isNaN(Number(guess.value)) ||
+    Number(guess.value) > 20 ||
+    Number(guess.value) < 1
+  ) {
+    msg.textContent = "INVALID!!! 🤬";
   } else {
-    score.textContent = Number(score.textContent) - 1;
-    if (Number(guess.value) > answer) {
-      msg.textContent = "Too High!";
-    } else if (Number(guess.value) < answer) {
-      msg.textContent = "Too Low!";
+    if (score.textContent === "0") {
+      msg.textContent = "Sorry! loser! 🤣";
     } else {
-      msg.textContent = "BINGOOOOOOO!!!";
-      numShow.textContent = answer;
-      highScore.textContent =
-        score.textContent > highScore.textContent
-          ? score.textContent
-          : highScore.textContent;
-      background.classList.add("win");
+      score.textContent = Number(score.textContent) - 1;
+      if (Number(guess.value) > answer) {
+        msg.textContent = "Too High 👍🏻";
+      } else if (Number(guess.value) < answer) {
+        msg.textContent = "Too Low! 👎🏻";
+      } else {
+        msg.textContent = "BINGOOOO!!! 🥳";
+        numShow.textContent = answer;
+        highScore.textContent =
+          score.textContent > highScore.textContent
+            ? score.textContent
+            : highScore.textContent;
+        background.classList.add("win");
+      }
     }
   }
 });
