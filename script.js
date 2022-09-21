@@ -30,27 +30,22 @@ document.querySelector(".check").addEventListener("click", () => {
   ) {
     hints("INVALID!!! 🤬");
   } else {
-    if (score.textContent === "0") {
-      hints("Sorry! loser! 🤣");
-    } else {
+    if (Number(guess.value) === answer) {
+      hints("BINGOOOO!!! 🥳");
+      secretNumber.textContent = answer;
+      highScore.textContent =
+        score.textContent > highScore.textContent
+          ? score.textContent
+          : highScore.textContent;
+      background.classList.add("win");
+    } else if (score.textContent > "1" && Number(guess.value) != answer) {
       score.textContent = Number(score.textContent) - 1;
-      if (Number(guess.value) > answer) {
-        hints("Too High 👍🏻");
-      } else if (Number(guess.value) < answer) {
-        hints("Too Low! 👎🏻");
-      } else {
-        hints("BINGOOOO!!! 🥳");
-        secretNumber.textContent = answer;
-        highScore.textContent =
-          score.textContent > highScore.textContent
-            ? score.textContent
-            : highScore.textContent;
-        background.classList.add("win");
-      }
+      hints(Number(guess.value) > answer ? "Too High 👍🏻" : "Too Low! 👎🏻");
+    } else {
+      score.textContent = 0;
+      hints("Sorry! loser! 🤣");
     }
   }
 });
 
-document.querySelector(".again").addEventListener("click", () => {
-  resetGame();
-});
+document.querySelector(".again").addEventListener("click", resetGame);
